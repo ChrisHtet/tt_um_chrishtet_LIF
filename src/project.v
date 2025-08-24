@@ -6,6 +6,9 @@
 `default_nettype none
 
 module tt_um_chrishtet_LIF (
+`ifdef GL_TEST
+    input wire VPWR, input wire VGND,
+`endif
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
