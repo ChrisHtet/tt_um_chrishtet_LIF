@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2024 Your Name
+ * Copyright (c) 2025 Chris Htet
  * SPDX-License-Identifier: Apache-2.0
  */
 
 `default_nettype none
 
-module tt_um_example (
+module tt_um_chrishtet_LIF (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
@@ -17,11 +17,30 @@ module tt_um_example (
 );
 
   // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+  assign uio_out = 8'b0;
+  assign uio_oe  = 8'b0;
 
-  // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
-
+  wire signed [7:0] I_q4_4 =ui_in;
+  wire spike;
+  wire [3:0] V_dbg;
+    
+    lif_neuron #(
+        .THRESH_Q4_4(8'sd64), // 4.0
+        .LSH(3),
+        .REF_CYCLES(8)
+    ) lif (
+        .clk   (clk),
+        .rst_n (rst_n),
+        .en    (ena),  
+        .I_q4_4(I_q4_4),
+        .spike (spike),
+        .V_dbg (V_dbg)
+    );
+// Driving output pins
+    assign uo_out[0] = spike;
+    assign uo_out[3:1] = 3'b000;    //not used
+    assign uo_out[7:4] = V_dbg;     //MSBs of membrane V
+// List all unused inputs to prevent warnings
+//i.e: wire _unused = &{ena, clk, rst_n, 1'b0};
+    wire _unused = &{uio_in, 1'b0};
 endmodule
