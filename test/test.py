@@ -140,7 +140,7 @@ async def lif_smoke(dut):
 
     # basic sanity: signals are driven (no X/Z)
     assert dut.uo_out.value.is_resolvable
-'''
+
 # SPDX-FileCopyrightText: © 2024 Tiny Tapeout
 # SPDX-License-Identifier: Apache-2.0
 
