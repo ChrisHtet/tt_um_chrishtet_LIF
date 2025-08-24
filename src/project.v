@@ -7,7 +7,8 @@
 
 module tt_um_chrishtet_LIF (
 `ifdef GL_TEST
-    input wire VPWR, input wire VGND,
+    input wire VPWR, 
+    input wire VGND,
 `endif
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
@@ -19,13 +20,8 @@ module tt_um_chrishtet_LIF (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-  // All output pins must be assigned. If not used, assign to 0.
-    assign uio_out = 8'b0;
-    assign uio_oe  = 8'b0;
-    assign uo_out[0]   = ena ? spike : 1'b0;      //not used
-    assign uo_out[7:4] = ena ? V_dbg  : 4'b0000; //MSBs of membrane V
-    assign uo_out[3:1] = 3'b000;
-
+  
+    
   wire signed [7:0] I_q4_4 =ui_in;
   wire spike;
   wire [3:0] V_dbg;
@@ -42,6 +38,13 @@ module tt_um_chrishtet_LIF (
         .spike (spike),
         .V_dbg (V_dbg)
     );
+    assign uo_out[0]   = ena ? spike : 1'b0;      //not used
+    assign uo_out[7:4] = ena ? V_dbg  : 4'b0000; //MSBs of membrane V
+    assign uo_out[3:1] = 3'b000;
+// All output pins must be assigned. If not used, assign to 0.
+    assign uio_out = 8'b0;
+    assign uio_oe  = 8'b0;
+
 // List all unused inputs to prevent warnings
 //i.e: wire _unused = &{ena, clk, rst_n, 1'b0};
     wire _unused = &{uio_in, 1'b0};
