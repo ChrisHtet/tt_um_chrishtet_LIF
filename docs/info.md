@@ -8,13 +8,17 @@ You can also include images in this folder and reference them in the markdown. E
 -->
 
 ## How it works
+A leaky-integrate-and-fire (LIF) neuron implemented in 8-bit signed Q4.4 fixed-point. 
+It’s designed to be tapeout-friendly (adds/subs/shifts only, no multiplies) with saturating arithmetic and a refractory period.
 
-Explain how your project works
+Per clock (when en=1), it 
+  - Integrates input current into a membrane potential V.
+  - Applies leak (exponential decay toward 0 via arithmetic right-shift).
+  - Checks threshold on the next potential (V_next) and emits a a spike signal and set V to Max if crossed.
+  - Resets and holds during a programmable refractory window so it won’t spike again immediately.
 
 ## How to test
-
-Explain how to use your project
+Using input CLk, Reset, and Current
 
 ## External hardware
-
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+  ADALM2000
