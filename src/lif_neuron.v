@@ -3,7 +3,7 @@
 // Fixed-point: Q4.4 on signed 8-bit: [-128, +127]; 1.0 = 16
 // Range ≈ [-8.0, +7.9375]
 
-module tt_um_chrishtet_LIF #(
+module lif_core #(
     parameter signed [7:0] THRESH_Q4_4     = 8'sd64,   // +4.0
     parameter integer      LSH             = 3,        // leak shift: leak = V >>> LSH
     parameter signed [7:0] V_MAX_Q4_4      = 8'sd127,  // set V to max on spike
