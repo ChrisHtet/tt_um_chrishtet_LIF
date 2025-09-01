@@ -24,7 +24,7 @@ project:
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-    ui[0]: "I_q4_4[0] (LSB)"
+  ui[0]: "I_q4_4[0] (LSB)"
   ui[1]: "I_q4_4[1]"
   ui[2]: "I_q4_4[2]"
   ui[3]: "I_q4_4[3]"
@@ -34,7 +34,7 @@ pinout:
   ui[7]: "I_q4_4[7] (MSB)"
 
   # Outputs
-    uo[0]: "spike (1-cycle pulse)"
+  uo[0]: "spike (1-cycle pulse)"
   uo[1]: "refractory (active-high)"
   uo[2]: "V_dbg[0] = V[4] (Q4.4)"
   uo[3]: "V_dbg[1] = V[5] (Q4.4)"
